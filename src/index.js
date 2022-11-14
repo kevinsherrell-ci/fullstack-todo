@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {TodoProvider} from './Context/Todo'
+import {createBrowserRouter} from 'react-router-dom';
+import HomePage from "./Pages/HomePage";
+import GlobalLayout from "./Layouts/GlobalLayout";
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,30 +1,47 @@
 import logo from './logo.svg';
 import './App.css';
-import {useEffect, useContext} from "react";
+import React, {useEffect, useContext} from "react";
 import {TodoContext} from './Context/Todo';
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import GlobalLayout from "./Layouts/GlobalLayout";
+import HomePage from "./Pages/HomePage";
+import TodoFormPage from "./Pages/TodoFormPage";
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <GlobalLayout/>,
+        children: [
+            {
+                path: '/',
+                element: <HomePage/>
+            },
+            {
+                path: 'TodoFormPage',
+                element: <TodoFormPage/>
+            }
+        ]
+    }
+])
+
 function App(props) {
     const todoData = useContext(TodoContext);
     console.log(todoData);
     useEffect(() => {
         todoData.getAllTodos();
     }, [])
-
+    const data = {
+        title: "Front end test",
+        description: "Create an express route that will respond with the mock todo list.",
+        isComplete: false,
+        priority: "High",
+    }
+    const handleCreate = () => {
+        console.log("handle create");
+    }
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+            <RouterProvider router={router}/>
         </div>
     );
 }

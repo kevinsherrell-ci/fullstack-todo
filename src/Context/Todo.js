@@ -12,16 +12,37 @@ export const TodoProvider = (props) => {
             .then((response)=>response.json())
             .then(response=>{
                 setTodos(response.data)
-                console.log(response.data);
             })
             .catch(err => {
                 console.log(err);
             })
     }
+    const createTodo = (data)=>{
+        console.log("create todo");
+        fetch('/todo/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response=>response.json())
+            .then(response=>setTodos([...todos, response.inserted]))
+            .catch(err=>{
+                console.log(err);
+            })
+    }
+    const updateTodo = ()=>{
+
+    }
+    const deleteTodo = ()=>{
+
+    }
     return (
         <TodoContext.Provider value={{
             todos: todos,
-            getAllTodos: getAllTodos
+            getAllTodos: getAllTodos,
+            createTodo: createTodo
         }}>
             {children}
         </TodoContext.Provider>

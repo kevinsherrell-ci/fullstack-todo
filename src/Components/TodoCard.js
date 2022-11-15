@@ -10,11 +10,18 @@
 //     lastModified: new Date(),
 //     completedDate: null
 // }
+import {useContext} from "react";
+import {TodoContext} from "../Context/Todo";
+
 const TodoCard = (props)=>{
+    const todoData = useContext(TodoContext);
+    const {deleteTodo, updateTodo} = todoData;
+
     const {todo} = props;
     const {_id,title, description, isComplete,priority, creationDate, lastModified, completedDate } = todo;
     return (
         <div className="todo-card">
+            {completedDate && <p>"COMPLETED"</p>}
             <h2>{title}</h2>
             <p>{_id}</p>
             <p>{description}</p>
@@ -23,6 +30,11 @@ const TodoCard = (props)=>{
             <p>{creationDate}</p>
             <p>{lastModified}</p>
             {completedDate && <p>completedDate</p>}
+            <button onClick={()=>deleteTodo(todo._id)}>Delete</button>
+            <button onClick={()=>{
+                const data = {completedDate: new Date()}
+                updateTodo(data, todo._id);
+            }}>Complete</button>
         </div>
     )
 }

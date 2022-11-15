@@ -7,25 +7,28 @@ import GlobalLayout from "./Layouts/GlobalLayout";
 import HomePage from "./Pages/HomePage";
 import TodoFormPage from "./Pages/TodoFormPage";
 
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <GlobalLayout/>,
-        children: [
-            {
-                path: '/',
-                element: <HomePage/>
-            },
-            {
-                path: 'TodoFormPage',
-                element: <TodoFormPage/>
-            }
-        ]
-    }
-])
 
 function App(props) {
     const todoData = useContext(TodoContext);
+    const {todos} = todoData
+    const router = createBrowserRouter([
+        {
+            path: '/',
+            element: <GlobalLayout/>,
+            children: [
+                {
+                    path: '/',
+                    element: <HomePage/>
+                },
+                {
+                    path: 'TodoFormPage',
+                    element: <TodoFormPage/>
+                }
+            ]
+        }
+    ])
+
+
     console.log(todoData);
     useEffect(() => {
         todoData.getAllTodos();
